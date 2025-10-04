@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatIA Pro - VIPRO</title>
+    <meta name="description" content="Sistema de chat avanzado con IA, reconocimiento de voz, procesamiento de imágenes, análisis de archivos y envío de archivos">
+    <meta name="author" content="ChatIAPro ">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Fondo animado con gradientes sutiles -->
+    <div class="background-animation"></div>
+    
+    <!-- Barra de navegación mejorada -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-robot"></i>
+                <span>ChatIAPro v3.0</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#inicio" class="nav-link active" data-section="inicio">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+                <a href="#archivos" class="nav-link" data-section="archivos">
+                    <i class="fas fa-folder"></i>
+                    <span>Archivos</span>
+                </a>
+                <a href="#herramientas" class="nav-link" data-section="herramientas">
+                    <i class="fas fa-tools"></i>
+                    <span>Herramientas</span>
+                </a>
+                <button id="themeToggle" class="theme-toggle" title="Cambiar tema">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Contenedor principal con diseño mejorado -->
+    <main class="main-content">
+        <div class="chat-container">
+            <!-- Encabezado del chat con mejor jerarquía visual -->
+            <header class="chat-header">
+                <div class="header-content">
+                    <div class="avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="header-text">
+                        <h1>AI 3.0</h1>
+                        <p class="status"><i class="fas fa-circle online"></i> En línea - Conectado</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button id="filesPanelBtn" class="action-btn" title="Panel de archivos">
+                        <i class="fas fa-folder-open"></i>
+                    </button>
+                    <button id="helpBtn" class="action-btn" title="Ayuda">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                    <button id="clearBtn" class="action-btn" title="Limpiar chat">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Área de chat optimizada para lectura -->
+            <div id="chatBox" class="chat-box">
+                <div class="message bot welcome-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <h3>¡Bienvenido al ChatIA Pro v3.0!</h3>
+                        <p>Hola, soy tu asistente de IA avanzado. Estoy aquí para ayudarte con:</p>
+                        <ul>
+                            <li>Conversaciones inteligentes con IA</li>
+                            <li>Reconocimiento de voz</li>
+                            <li>Análisis de imágenes y archivos</li>
+                            <li>Gestión y envío de archivos</li>
+                            <li>Análisis de documentos (TXT, PDF, Word, Excel)</li>
+                            <li>Procesamiento de código fuente</li>
+                            <li>Y mucho más...</li>
+                        </ul>
+                        <p>¡Sube cualquier archivo y podré analizarlo para ayudarte!</p>
+                        <div class="message-time" id="welcome-time">Ahora</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Área de entrada mejorada -->
+            <div class="input-container">
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <textarea id="userInput" placeholder="Escribe tu mensaje o pregunta aquí..." rows="1"></textarea>
+                        <div class="input-actions">
+                            <button id="fileBtn" class="action-btn attach-btn" title="Enviar archivo">
+                                <i class="fas fa-paperclip"></i>
+                            </button>
+                            <input type="file" id="fileInput" multiple style="display: none;">
+                            <button id="imageBtn" class="action-btn attach-btn" title="Subir imagen">
+                                <i class="fas fa-image"></i>
+                            </button>
+                            <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                            <button id="voiceBtn" class="action-btn voice-btn" title="Entrada de voz">
+                                <i class="fas fa-microphone"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button id="sendBtn" class="send-btn" title="Enviar mensaje">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="input-info">
+                    <span class="hint">Presiona Enter para enviar, Shift+Enter para nueva línea</span>
+                    <span id="charCount">0/2000</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Panel de archivos con mejor organización -->
+    <div id="filesPanel" class="side-panel">
+        <div class="panel-content">
+            <div class="panel-header">
+                <h3>Archivos Compartidos</h3>
+                <button id="closeFilesBtn" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="panel-body">
+                <div class="file-actions">
+                    <button id="uploadFileBtn" class="btn-primary">
+                        <i class="fas fa-upload"></i>
+                        Subir Archivo
+                    </button>
+                    <input type="file" id="uploadFileInput" multiple style="display: none;">
+                </div>
+                <div class="files-list" id="filesList">
+                    <div class="empty-state">
+                        <i class="fas fa-folder-open"></i>
+                        <p>No hay archivos compartidos</p>
+                        <small>Los archivos que envíes aparecerán aquí</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel de ayuda con información más clara -->
+    <div id="helpPanel" class="side-panel">
+        <div class="panel-content">
+            <div class="panel-header">
+                <h3>Centro de Ayuda v3.0</h3>
+                <button id="closeHelpBtn" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="panel-body">
+                <div class="help-section">
+                    <h4>Funcionalidades Disponibles</h4>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-comment"></i>
+                            <h5>Chat con IA</h5>
+                            <p>Conversa con inteligencia artificial avanzada</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-microphone"></i>
+                            <h5>Voz a Texto</h5>
+                            <p>Usa tu voz para escribir mensajes</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-image"></i>
+                            <h5>Análisis de Imágenes</h5>
+                            <p>Sube imágenes para que las analice la IA</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-file"></i>
+                            <h5>Gestión de Archivos</h5>
+                            <p>Envía y comparte cualquier tipo de archivo</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-file-code"></i>
+                            <h5>Análisis de Código</h5>
+                            <p>Analiza archivos de código fuente</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-file-alt"></i>
+                            <h5>Análisis de Texto</h5>
+                            <p>Procesa documentos de texto completos</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="help-section">
+                    <h4>Formatos Soportados</h4>
+                    <div class="formats-list">
+                        <div class="format-item">
+                            <i class="fas fa-file-image"></i>
+                            <span>Imágenes (JPG, PNG, GIF, WebP)</span>
+                        </div>
+                        <div class="format-item">
+                            <i class="fas fa-file-pdf"></i>
+                            <span>Documentos PDF</span>
+                        </div>
+                        <div class="format-item">
+                            <i class="fas fa-file-word"></i>
+                            <span>Documentos Word (.docx, .doc)</span>
+                        </div>
+                        <div class="format-item">
+                            <i class="fas fa-file-excel"></i>
+                            <span>Hojas de cálculo (.xlsx, .csv)</span>
+                        </div>
+                        <div class="format-item">
+                            <i class="fas fa-file-code"></i>
+                            <span>Código fuente (JS, HTML, CSS, Python, etc.)</span>
+                        </div>
+                        <div class="format-item">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Texto plano (TXT, MD, JSON, XML)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay para mejorar la experiencia de usuario -->
+    <div id="overlay" class="overlay"></div>
+
+    <!-- Notificaciones mejoradas -->
+    <div id="notification" class="notification">
+        <i id="notificationIcon" class="fas fa-info-circle"></i>
+        <span id="notificationText">Mensaje de notificación</span>
+        <button id="closeNotification" class="notification-close">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
