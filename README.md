@@ -1,1 +1,1 @@
-# ChatIA-Pro-v1.0
+# ChatIA-Pro-v3.0
